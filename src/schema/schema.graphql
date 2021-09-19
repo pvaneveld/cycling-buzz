@@ -1,0 +1,31 @@
+type Query {
+  cyclists: [Cyclist!]!
+  articles: [Article!]!
+}
+
+type Mutation {
+  article(
+    published: Date!
+    url: String!
+    medium: String!
+    cyclistId: Int!
+  ): Article!
+}
+
+scalar Date
+
+type Cyclist {
+  id: ID!
+  firstName: String!
+  lastName: String!
+  nationality: String!
+  articles: [Article!]
+}
+
+type Article {
+  id: ID!
+  published: Date!
+  url: String!
+  medium: String!
+  cyclistId: Int!
+}

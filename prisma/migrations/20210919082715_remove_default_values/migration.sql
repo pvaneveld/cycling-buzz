@@ -1,0 +1,3 @@
+-- AlterTable
+ALTER TABLE `Cyclist` ALTER COLUMN `firstName` DROP DEFAULT,
+    ALTER COLUMN `lastName` DROP DEFAULT;
