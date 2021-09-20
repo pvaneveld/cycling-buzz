@@ -13,7 +13,8 @@
   "dependencies": {
     "@prisma/client": "^3.0.2",
     "apollo-server": "^3.3.0",
-    "graphql": "^15.5.3"
+    "graphql": "^15.5.3",
+    "puppeteer": "^10.2.0"
   },
   "devDependencies": {
     "nodemon": "^2.0.12",
