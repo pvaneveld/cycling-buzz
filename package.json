@@ -5,6 +5,9 @@
   "main": "index.js",
   "scripts": {
     "dev": "nodemon src/index.js",
+    "puppeteer": "node src/puppeteer/puppeteer.js",
+    "prisma:studio": "npx prisma studio",
+    "prisma:reset": "npx prisma migrate reset",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
