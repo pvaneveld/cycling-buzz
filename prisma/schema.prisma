@@ -10,10 +10,18 @@ generator client {
   provider = "prisma-client-js"
 }
 
-enum Countries {
-  NL
-  BE
+enum CountryCode {
+  NLD
+  BEL
+  ECU
+  COL
+  SVK
+  GBR
+  SVN
+}
 
+enum Medium {
+  CYCLING_NEWS
 }
 
 model Article {
@@ -21,16 +29,17 @@ model Article {
   createdAt DateTime @default(now())
   published DateTime
   url       String
-  medium    String
+  headline  String
+  medium    Medium
   cyclist   Cyclist  @relation(fields: [cyclistId], references: [id])
   cyclistId Int
 }
 
 model Cyclist {
-  id          Int       @id @default(autoincrement())
-  createdAt   DateTime  @default(now())
+  id          Int         @id @default(autoincrement())
+  createdAt   DateTime    @default(now())
   firstName   String
   lastName    String
-  nationality String
+  nationality CountryCode
   articles    Article[]
 }
