@@ -1,9 +1,9 @@
-const fs = require('fs');
-const path = require('path');
+import fs from 'fs';
+import path from 'path';
 
-const { ApolloServer } = require('apollo-server');
-const { PrismaClient } = require('@prisma/client');
-const { GraphQLScalarType } = require('graphql');
+import { ApolloServer } from 'apollo-server';
+import { PrismaClient } from '@prisma/client';
+import { GraphQLScalarType } from 'graphql';
 
 
 const prisma = new PrismaClient();
@@ -34,7 +34,7 @@ const resolvers = {
         description: 'A date and time, represented as an ISO-8601 string',
         serialize: (value) => value.toISOString(),
         parseValue: (value) => new Date(value),
-        parseLiteral: (ast) => new Date(ast.value)
+        parseLiteral: (ast: any) => new Date(ast.value)
     }),
 }
 
