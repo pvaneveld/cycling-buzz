@@ -1,11 +1,14 @@
 {
   "name": "cycling-buzz-back-end",
   "version": "1.0.0",
+  "prisma": {
+    "seed": "ts-node prisma/seed.ts"
+  },
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon src/index.js",
-    "puppeteer": "node src/puppeteer/puppeteer.js",
+    "dev": "ts-node ./src/index.ts",
+    "puppeteer": "ts-node src/puppeteer/puppeteer.ts",
     "prisma:studio": "npx prisma studio",
     "prisma:reset": "npx prisma migrate reset",
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -15,12 +18,16 @@
   "license": "ISC",
   "dependencies": {
     "@prisma/client": "^3.0.2",
+    "@tsconfig/node14": "^1.0.1",
     "apollo-server": "^3.3.0",
     "graphql": "^15.5.3",
     "luxon": "^2.0.2",
-    "puppeteer": "^10.2.0"
+    "puppeteer": "^10.2.0",
+    "ts-node": "^10.2.1",
+    "typescript": "^4.4.3"
   },
   "devDependencies": {
+    "@types/luxon": "^2.0.5",
     "nodemon": "^2.0.12",
     "prisma": "^3.0.2"
   }
