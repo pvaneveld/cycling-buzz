@@ -7,7 +7,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "ts-node ./src/index.ts",
+    "start": "ts-node ./src/index.ts",
     "puppeteer": "ts-node src/puppeteer/puppeteer.ts",
     "prisma:studio": "npx prisma studio",
     "prisma:reset": "npx prisma migrate reset",
