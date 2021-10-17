@@ -11,7 +11,7 @@ import * as Tracing from "@sentry/tracing";
 Sentry.init({
     dsn: "https://357348179eba40f0b38601dceab72210@o1041077.ingest.sentry.io/6010032",
     integrations: [
-        new Tracing.Integrations.Mysql(),
+        new Tracing.Integrations.Postgres(),
     ],
     // Set tracesSampleRate to 1.0 to capture 100%
     // of transactions for performance monitoring.
