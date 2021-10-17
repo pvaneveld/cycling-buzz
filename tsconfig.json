@@ -5,7 +5,9 @@
     "strict": false,
     "esModuleInterop": true,
     "skipLibCheck": true,
-    "forceConsistentCasingInFileNames": true
+    "outDir": "dist", // Types should go into this directory.
+    "forceConsistentCasingInFileNames": true,
+    "declaration": true // Generate d.ts files
   },
   "$schema": "https://json.schemastore.org/tsconfig",
   "display": "Recommended"

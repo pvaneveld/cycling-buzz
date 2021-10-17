@@ -5,8 +5,8 @@ import { ApolloServer } from 'apollo-server';
 import { PrismaClient } from '@prisma/client';
 import { GraphQLScalarType } from 'graphql';
 
-import Sentry from "@sentry/node";
-import Tracing from "@sentry/tracing";
+import * as Sentry from "@sentry/node";
+import * as Tracing from "@sentry/tracing";
 
 Sentry.init({
     dsn: "https://357348179eba40f0b38601dceab72210@o1041077.ingest.sentry.io/6010032",
