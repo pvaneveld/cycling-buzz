@@ -1,6 +1,5 @@
 import puppeteer from 'puppeteer';
 import { Cyclist, PrismaClient, Medium } from '@prisma/client';
-import cron from 'node-cron';
 import { DateTime } from 'luxon';
 import * as Sentry from "@sentry/node";
 
@@ -12,7 +11,7 @@ Sentry.init({
 });
 
 
-cron.schedule('0 1 * * *', async () => {
+const getArticles = async () => {
 
     try {
         // FUNCTIONS
@@ -39,23 +38,23 @@ cron.schedule('0 1 * * *', async () => {
             return await page.evaluate(() => {
                 const articles = document.querySelectorAll('.article-link');
                 const yesterdaysArticles = Array.from(articles)
-                    .filter(article => {
-                        const time = article.querySelector('.published-date.relative-date');
-                        return !!time?.textContent?.includes('1 day ago');
-                    })
-                    .map(article => article.getAttribute('href'));
-                return yesterdaysArticles;
+                .filter(article => {
+                            const time = article.querySelector('time');
+                            return !!time?.textContent?.includes('1 day ago');
+                        })
+                        .map(article => article.getAttribute('href'));
+                    return yesterdaysArticles;
+                    
             });
         }
 
         const createArticles = async (results: (Cyclist & { headline: string })[], href: string) => {
-            console.log(results);
             await prisma.article.createMany({
                 data: results.map(cyclist => ({
                     cyclistId: cyclist.id,
                     headline: cyclist.headline,
                     medium: Medium.CYCLING_NEWS,
-                    published: DateTime.local().minus({ days: 1 }).toJSDate(),
+                    published: DateTime.utc().minus({ days: 1 }).toJSDate(),
                     url: href,
                 })),
                 skipDuplicates: true,
@@ -65,7 +64,7 @@ cron.schedule('0 1 * * *', async () => {
         // CONSTANTS
         const prisma = new PrismaClient();
         const browser = await puppeteer.launch({
-            headless: false,
+            headless: true,
             defaultViewport: { height: 1100, width: 1600 },
         });
         const page = await browser.newPage();
@@ -73,8 +72,12 @@ cron.schedule('0 1 * * *', async () => {
         await page.goto('https://www.cyclingnews.com/news/?page=1');
 
         const hrefs = await getYesterdaysArticlesUrls();
-        const cyclists = await prisma.cyclist.findMany();
 
+        if (!hrefs?.length) {
+            Sentry.captureMessage('No articles found for previous day in cycling news');
+        }
+
+        const cyclists = await prisma.cyclist.findMany();
         for (const href of hrefs) {
             await page.goto(href);
             await createArticles(
@@ -87,4 +90,6 @@ cron.schedule('0 1 * * *', async () => {
     } catch (error) {
         Sentry.captureException(error);
     }
-});
+};
+
+getArticles();
