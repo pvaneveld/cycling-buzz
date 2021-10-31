@@ -28,7 +28,7 @@ model Article {
   id        Int      @id @default(autoincrement())
   createdAt DateTime @default(now())
   published DateTime
-  url       String
+  url       String @unique
   headline  String
   medium    Medium
   cyclist   Cyclist  @relation(fields: [cyclistId], references: [id])
