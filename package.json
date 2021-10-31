@@ -8,12 +8,11 @@
   "main": "./dist/src/index.js",
   "scripts": {
     "start": "node ./dist/src/index.js",
-    "postinstall": "tsc",
+    "postinstall": "tsc && cp -r src/schema dist/src && cp -r ./prisma/schema.prisma dist/prisma",
     "start:dev": "ts-node ./src/index.ts",
     "puppeteer": "ts-node src/puppeteer/puppeteer.ts",
     "prisma:studio": "npx prisma studio",
     "prisma:reset": "npx prisma migrate reset",
-    "build": "tsc",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "engines": {
