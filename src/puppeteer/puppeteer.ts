@@ -65,6 +65,7 @@ const getArticles = async () => {
         const prisma = new PrismaClient();
         const browser = await puppeteer.launch({
             headless: true,
+            args: ['--no-sandbox','--disable-setuid-sandbox'],
             defaultViewport: { height: 1100, width: 1600 },
         });
         const page = await browser.newPage();
