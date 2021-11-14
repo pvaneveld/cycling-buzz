@@ -72,6 +72,5 @@ try {
         .listen({ port: process.env.PORT || 4000 })
         .then(({ url }) => console.log(`Server is running on ${url}`));
 } catch (error) {
-    console.log(error);
     Sentry.captureException(error);
 }
