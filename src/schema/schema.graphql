@@ -1,15 +1,7 @@
 type Query {
+  cyclist(id: Int): Cyclist!
   cyclists: [Cyclist!]!
-  articles: [Article!]!
-}
-
-type Mutation {
-  article(
-    published: Date!
-    url: String!
-    medium: String!
-    cyclistId: Int!
-  ): Article!
+  articles(orderBy: ArticlesOrderByInput): [Article!]!
 }
 
 scalar Date
@@ -26,6 +18,17 @@ type Article {
   id: ID!
   published: Date!
   url: String!
+  headline: String!
   medium: String!
+  cyclist: Cyclist!
   cyclistId: Int!
+}
+
+input ArticlesOrderByInput {
+  published: Sort
+}
+
+enum Sort {
+  asc
+  desc
 }
